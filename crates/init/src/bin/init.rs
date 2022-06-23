@@ -5,7 +5,7 @@ use hyper::{Body, Request, Response, Server};
 use routerify::{ext::RequestExt, Router, RouterService};
 use std::collections::BTreeMap;
 use std::sync::Arc;
-use theos_kit::protocol::{Message, Service, ServiceConfig, State};
+use theos_protocol::{Message, Service, ServiceConfig, State};
 use tokio::{
 	process::Command,
 	sync::{mpsc, Mutex},
@@ -44,33 +44,33 @@ async fn main() -> Result<()> {
 			if let Ok(message) = rx.lock().await.try_recv() {
 				match message {
 					Message::Shutdown => {
-						info!("Got: Shutdown signal");
+						info!("Received shutdown signal");
 						break;
 					}
-					Message::Start(unit_name) => {
-						info!("Got start {:?}", unit_name);
+					Message::Start(service_name) => {
+						info!("Received start signal {:?}", service_name);
 						if let Some(service) =
-							services.lock().await.get_mut(&unit_name)
+							services.lock().await.get_mut(&service_name)
 						{
 							service.start().await.unwrap();
 						} else {
 							error!(
-								"Did not find a service named {}",
-								unit_name
+								"Could not find a service named {}",
+								service_name
 							);
 						}
 					}
-					Message::Stop(unit_name) => {
-						info!("Got stop {:?}", unit_name);
+					Message::Stop(service_name) => {
+						info!("Received stop signal {:?}", service_name);
 						if let Some(service) =
-							services.lock().await.get_mut(&unit_name)
+							services.lock().await.get_mut(&service_name)
 						{
 							service.stop().await.unwrap();
 						// This is our server object.
 						} else {
 							error!(
-								"Did not find a service named {}",
-								unit_name
+								"Could not find a service named {}",
+								service_name
 							);
 						}
 					}

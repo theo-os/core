@@ -3,31 +3,12 @@ use async_recursion::async_recursion;
 use bollard::Docker;
 use derive_builder::Builder;
 use serde_json::Value;
-use std::fs::File;
-use std::io::Write;
 use std::path::Path;
+use std::{fs::File, io::Write};
 use tar::Archive;
 use tokio_stream::StreamExt;
 use tracing::{debug, instrument};
 
-/// Extract filesystem of the given docker image (`{image}:{tag}`) to the given path `to_dir`.
-/// Does not extract symlinks to absolute paths, as they will point to wrong references anyways.
-///
-/// **Example:**
-/// ```rust
-///use std::path::Path;
-///use std::io;
-///# use tempdir::TempDir;
-///
-///fn main() -> io::Result<()>{
-///    let image = "alpine";
-///    let tag = "latest";
-///#    let tmp_dir = TempDir::new("docker-extract-docu").expect("");
-///#    let dir_string = String::from(tmp_dir.path().to_str().unwrap());
-///    let to_dir = Path::new(dir_string.as_str());
-///    docker_extract::extract_image(image, tag, &to_dir)
-///}
-/// ```
 #[instrument(skip(docker))]
 pub async fn extract_image(
 	docker: &Docker,
@@ -87,7 +68,8 @@ pub async fn save_image(
 		tar_file.write_all(&bytes?)?;
 	}
 
-	Archive::new(File::open(&tar_file_path)?).unpack(&unpacked_dir)?;
+	let tar_file = File::open(&tar_file_path)?;
+	Archive::new(tar_file).unpack(&unpacked_dir)?;
 
 	Ok(())
 }
@@ -150,7 +132,8 @@ async fn get_parent_layer(
 pub async fn untar_layers(v: Vec<Layer>, dst: &Path) -> Result<()> {
 	for l in v.iter().rev() {
 		debug!(layer_path = l.get_tar_file_path());
-		let mut archive = Archive::new(File::open(l.get_tar_file_path())?);
+		let tar_file = File::open(l.get_tar_file_path())?;
+		let mut archive = Archive::new(tar_file);
 		for mut file in archive.entries()?.filter_map(|f| f.ok()) {
 			let mut do_unpack = true;
 			if file.header().entry_type().is_symlink() {

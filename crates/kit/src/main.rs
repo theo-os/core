@@ -46,7 +46,7 @@ pub async fn main() -> Result<()> {
 	info!("Creating disk image...");
 	std::process::Command::new("nu")
 		.arg("-c")
-		.arg(include_str!("../scripts/build_bootloader.nu"))
+		.arg(include_str!("./build_bootloader.nu"))
 		.status()?;
 
 	Ok(())

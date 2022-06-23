@@ -1,0 +1,23 @@
+[package]
+name = "theos-kit"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "tkit"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0.58"
+async-recursion = "1.0.0"
+bollard = "0.13.0"
+derive_builder = "0.11.2"
+serde_json = "1.0.81"
+tar = "0.4.38"
+tokio = { version = "1.19.2", features = ["full"] }
+tokio-stream = "0.1.9"
+tracing = "0.1.35"
+tracing-subscriber = "0.3.11"
+theos-protocol = { path = "../protocol" }
+serde = { version = "1.0.137", features = ["derive"] }
+fuser = { version = "0.11.0", features = ["serde"] }

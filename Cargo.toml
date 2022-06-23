@@ -1,34 +1,24 @@
-[package]
-name = "theos-kit"
-version = "0.0.1"
-edition = "2021"
+# [dependencies]
+# crossterm = { version = "0.23.2", features = ["serde"] }
+# serde = { version = "1.0.137", features = ["derive"] }
+# tui = { version = "0.18.0", default-features = false, features = ["crossterm", "serde"] }
+# tui-textarea = "0.1.1"
+# anyhow = "1.0.58"
+# tracing = "0.1.35"
+# tracing-subscriber = "0.3.11"
+# hyper = { version = "0.14.19", features = ["server"] }
+# bollard = "0.13.0"
+# tokio = { version = "1.19.2", features = ["full"] }
+# tokio-stream = "0.1.9"
+# async-recursion = "1.0.0"
+# serde_json = "1.0.81"
+# tar = "0.4.38"
+# daemonize-me = "2.0.1"
+# derive_builder = "0.11.2"
+# tempdir = "0.3.7"
+# zbox = { version = "0.9.2", features = ["storage-file", "libsodium-bundled"] }
+# routerify = "3.0.0"
+# async-trait = "0.1.56"
 
-[[bin]]
-name = "tkit"
-path = "src/bin/builder.rs"
-
-[[bin]]
-name = "tinit"
-path = "src/bin/init_system.rs"
-
-[dependencies]
-crossterm = { version = "0.23.2", features = ["serde"] }
-serde = { version = "1.0.137", features = ["derive"] }
-tui = { version = "0.18.0", default-features = false, features = ["crossterm", "serde"] }
-tui-textarea = "0.1.1"
-anyhow = "1.0.58"
-tracing = "0.1.35"
-tracing-subscriber = "0.3.11"
-hyper = { version = "0.14.19", features = ["server"] }
-bollard = "0.13.0"
-tokio = { version = "1.19.2", features = ["full"] }
-tokio-stream = "0.1.9"
-async-recursion = "1.0.0"
-serde_json = "1.0.81"
-tar = "0.4.38"
-daemonize-me = "2.0.1"
-derive_builder = "0.11.2"
-tempdir = "0.3.7"
-zbox = { version = "0.9.2", features = ["storage-file", "libsodium-bundled"] }
-routerify = "3.0.0"
-async-trait = "0.1.56"
+[workspace]
+members = ["crates/*"]

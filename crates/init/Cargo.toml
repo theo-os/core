@@ -1,0 +1,25 @@
+[package]
+name = "theos-init"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "tinit"
+path = "src/bin/init.rs"
+
+[[bin]]
+name = "tconfig"
+path = "src/bin/configure.rs"
+
+[dependencies]
+anyhow = "1.0.58"
+async-trait = "0.1.56"
+hyper = { version = "0.14.19", features = ["server"] }
+routerify = "3.0.0"
+serde_json = "1.0.81"
+tokio = { version = "1.19.2", features = ["full"] }
+tracing = "0.1.35"
+tracing-subscriber = "0.3.11"
+theos-protocol = { path = "../protocol" }
+clap = { version = "3.2.6", features = ["derive"] }
+smoltcp = "0.8.1"

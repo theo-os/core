@@ -12,6 +12,8 @@ WORKDIR /kernel
 RUN git clone --depth 1 \
     https://github.com/zen-kernel/zen-kernel \
     . && \
+    echo "CONFIG_E1000=y" >> .custom_config && \
+    ./scripts/kconfig/merge_config.sh .config .custom_config && \
     make olddefconfig -j$(nproc) && \
     make -j$(nproc)
     
