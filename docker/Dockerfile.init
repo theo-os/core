@@ -1,0 +1,11 @@
+FROM ghcr.io/instrumentisto/rust:nightly-alpine as build
+
+RUN apk add --no-cache git musl-dev openssl-dev \
+    curl gnupg build-base
+
+WORKDIR /tinit
+COPY . .
+RUN cargo build --release
+
+FROM scratch
+COPY --from=build /tinit/target/release/tinit /sbin/tinit

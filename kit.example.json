@@ -1,0 +1,12 @@
+{
+  "images": [
+    "docker.io/library/busybox:latest",
+    "localhost/theos/nushell:latest",
+    "localhost/theos/kernel:latest"
+  ],
+  "bootloader": {
+    "entry_name": "TheOS",
+    "kernel_arguments": "console=ttyS0 root=/dev/sda1 rw init=/bin/nu",
+    "kernel_path": "/kernel.elf"
+  }
+}

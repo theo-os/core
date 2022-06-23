@@ -1,0 +1,20 @@
+FROM debian:latest as build
+
+RUN apt update -y
+RUN apt install -y \
+    libncurses-dev gawk flex bison \
+    openssl libssl-dev dkms \
+    libelf-dev libudev-dev \
+    libpci-dev libiberty-dev autoconf \
+    git bc build-essential
+    
+WORKDIR /kernel
+RUN git clone --depth 1 \
+    https://github.com/zen-kernel/zen-kernel \
+    . && \
+    make olddefconfig -j$(nproc) && \
+    make -j$(nproc)
+    
+FROM scratch
+
+COPY --from=build /kernel/arch/x86/boot/bzImage /kernel.elf

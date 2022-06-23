@@ -1,0 +1,17 @@
+target/
+build/
+*.env*
+*.log*
+*.DS_Store*
+!*.example*
+Cargo.lock
+flamegraph.svg
+*.png
+perf.data
+perf.data.old 
+*.tar*
+kit.json
+kit_rootfs/
+limine.cfg
+*.pid
+services.json

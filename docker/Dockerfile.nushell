@@ -1,0 +1,12 @@
+FROM ghcr.io/instrumentisto/rust:nightly-alpine as build
+
+RUN apk add --no-cache git musl-dev openssl-dev perl build-base
+
+WORKDIR /nushell
+RUN git clone --depth 1 \
+    https://github.com/nushell/nushell \
+    . && \
+    cargo build --release --features dataframe,static-link-openssl
+
+FROM scratch
+COPY --from=build /nushell/target/release/nu /bin/nu

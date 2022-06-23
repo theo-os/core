@@ -1,0 +1,6 @@
+.git
+kit_rootfs
+build
+target
+*.pid
+*.log
