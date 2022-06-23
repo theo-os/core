@@ -1,11 +1,13 @@
 FROM ghcr.io/instrumentisto/rust:nightly-alpine as build
 
 RUN apk add --no-cache git musl-dev openssl-dev \
-    curl gnupg build-base
+    curl gnupg build-base fuse-dev
 
-WORKDIR /tinit
+WORKDIR /theos
 COPY . .
-RUN cargo build --release
+RUN cargo build -p theos-kit
+RUN cargo build -p theos-init
 
 FROM scratch
-COPY --from=build /tinit/target/release/tinit /sbin/tinit
+COPY --from=build /theos/target/release/tinit /sbin/tinit
+COPY --from=build /theos/target/release/tconfig /sbin/tconfig

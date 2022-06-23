@@ -1,0 +1,9 @@
+[package]
+name = "theos-protocol"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.58"
+serde = { version = "1.0.137", features = ["derive"] }
+tokio = { version = "1.19.2", features = ["process", "full"] }

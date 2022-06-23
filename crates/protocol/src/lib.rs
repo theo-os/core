@@ -1,5 +1,25 @@
+use anyhow::{bail, Result};
 use serde::{Deserialize, Serialize};
+use std::str::FromStr;
 use tokio::process::Child;
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub enum InterfaceStatus {
+	Up,
+	Down,
+}
+
+impl FromStr for InterfaceStatus {
+	type Err = anyhow::Error;
+
+	fn from_str(s: &str) -> Result<Self> {
+		match s {
+			"up" => Ok(Self::Up),
+			"down" => Ok(Self::Down),
+			_ => bail!("Invalid interface status: {}", s),
+		}
+	}
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Message {

@@ -26,6 +26,6 @@ sudo cp /usr/share/limine/BOOTX64.EFI ./build/boot/efi/boot/
 sudo cp ./limine.cfg ./build/boot/
 sudo cp ./services.json ./build/mnt/
 
-sudo umount ./build/mnt
-sudo umount ./build/boot
+sudo umount /dev/loop0p1
+sudo umount /dev/loop0p2
 sudo losetup -D
