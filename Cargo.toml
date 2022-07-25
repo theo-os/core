@@ -12,19 +12,19 @@ name = "tinit"
 path = "src/bin/init_system.rs"
 
 [dependencies]
-crossterm = { version = "0.23.2", features = ["serde"] }
-serde = { version = "1.0.137", features = ["derive"] }
+crossterm = { version = "0.24.0", features = ["serde"] }
+serde = { version = "1.0.140", features = ["derive"] }
 tui = { version = "0.18.0", default-features = false, features = ["crossterm", "serde"] }
-tui-textarea = "0.1.1"
+tui-textarea = "0.1.5"
 anyhow = "1.0.58"
 tracing = "0.1.35"
-tracing-subscriber = "0.3.11"
-hyper = { version = "0.14.19", features = ["server"] }
+tracing-subscriber = "0.3.15"
+hyper = { version = "0.14.20", features = ["server"] }
 bollard = "0.13.0"
-tokio = { version = "1.19.2", features = ["full"] }
+tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = "0.1.9"
 async-recursion = "1.0.0"
-serde_json = "1.0.81"
+serde_json = "1.0.82"
 tar = "0.4.38"
 daemonize-me = "2.0.1"
 derive_builder = "0.11.2"
